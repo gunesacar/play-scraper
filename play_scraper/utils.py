@@ -192,6 +192,10 @@ def parse_additional_info(soup):
                 if developer_url:
                     developer_url = developer_url.attrs['href']
 
+                privacy_policy_url = value_div.select('a')[-1]
+                if privacy_policy_url:
+                    privacy_policy_url = privacy_policy_url.attrs['href']
+
                 developer_address = value_div.select('div')[-1].contents[0]
                 if developer_address.name is not None:
                     # If a bs4 Tag, it will have name attribute, e.g. 'a'
@@ -203,7 +207,9 @@ def parse_additional_info(soup):
 
                 dev_data = {'developer_email': developer_email,
                             'developer_url': developer_url,
-                            'developer_address': developer_address}
+                            'developer_address': developer_address,
+                            'privacy_policy_url': privacy_policy_url,
+                            }
                 data.update(dev_data)
                 continue
             else:
